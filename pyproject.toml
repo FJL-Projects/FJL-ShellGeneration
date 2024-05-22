@@ -32,5 +32,8 @@ url = "https://download.pytorch.org/whl/cu110"
 priority = "supplemental"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "setuptools"]
 build-backend = "poetry.core.masonry.api"
+
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
