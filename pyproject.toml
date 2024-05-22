@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "fjl-shellgeneration"
+version = "0.1.0"
+description = ""
+authors = ["0x11111111 <dypro_mike@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+argparse = "^1.4.0"
+easydict = "^1.13"
+h5py = "^3.11.0"
+numpy = "1.19.5"
+open3d = "^0.18.0"
+pyyaml = "^6.0.1"
+scipy = "1.10"
+tensorboardx = "^2.6.2.2"
+timm = "^1.0.3"
+tqdm = "^4.66.4"
+transforms3d = "^0.4.1"
+einops = "^0.8.0"
+matplotlib = "3.6"
+opencv-python = "4.2.0.34"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

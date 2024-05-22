@@ -6,7 +6,8 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--config', 
-        type = str, 
+        type = str,
+        default='cfgs/Tooth_models/PoinTr.yaml',
         help = 'yaml config file')
     parser.add_argument(
         '--launcher',
@@ -76,9 +77,9 @@ def get_args():
 
 def create_experiment_dir(args):
     if not os.path.exists(args.experiment_path):
-        os.makedirs(args.experiment_path, exist_ok=True)
+        os.makedirs(args.experiment_path)
         print('Create experiment path successfully at %s' % args.experiment_path)
     if not os.path.exists(args.tfboard_path):
-        os.makedirs(args.tfboard_path, exist_ok=True)
+        os.makedirs(args.tfboard_path)
         print('Create TFBoard path successfully at %s' % args.tfboard_path)
 

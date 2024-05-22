@@ -2,7 +2,7 @@ import torch
 from torch import nn
 
 from pointnet2_ops import pointnet2_utils
-from extensions.chamfer_dist import ChamferDistanceL1
+from extension.chamfer_dist import ChamferDistanceL1
 from .Transformer import PCTransformer
 from .build import MODELS
 
@@ -83,7 +83,7 @@ class PoinTr(nn.Module):
     def build_loss_func(self):
         self.loss_func = ChamferDistanceL1()
 
-    def get_loss(self, ret, gt, epoch=0):
+    def get_loss(self, ret, gt):
         loss_coarse = self.loss_func(ret[0], gt)
         loss_fine = self.loss_func(ret[1], gt)
         return loss_coarse, loss_fine
@@ -95,7 +95,7 @@ class PoinTr(nn.Module):
 
         global_feature = self.increase_dim(q.transpose(1,2)).transpose(1,2) # B M 1024
         global_feature = torch.max(global_feature, dim=1)[0] # B 1024
-
+        #print(global_feature.shape)
         rebuild_feature = torch.cat([
             global_feature.unsqueeze(-2).expand(-1, M, -1),
             q,
@@ -104,10 +104,12 @@ class PoinTr(nn.Module):
         rebuild_feature = self.reduce_map(rebuild_feature.reshape(B*M, -1)) # BM C
         # # NOTE: try to rebuild pc
         # coarse_point_cloud = self.refine_coarse(rebuild_feature).reshape(B, M, 3)
-
+        #print(rebuild_feature.shape)
         # NOTE: foldingNet
         relative_xyz = self.foldingnet(rebuild_feature).reshape(B, M, 3, -1)    # B M 3 S
+        #print(relative_xyz.shape)
         rebuild_points = (relative_xyz + coarse_point_cloud.unsqueeze(-1)).transpose(2,3).reshape(B, -1, 3)  # B N 3
+        #print(rebuild_points.shape)
 
         # NOTE: fc
         # relative_xyz = self.refine(rebuild_feature)  # BM 3S
@@ -115,9 +117,8 @@ class PoinTr(nn.Module):
 
         # cat the input
         inp_sparse = fps(xyz, self.num_query)
-        coarse_point_cloud = torch.cat([coarse_point_cloud, inp_sparse], dim=1).contiguous()
-        rebuild_points = torch.cat([rebuild_points, xyz],dim=1).contiguous()
-
-        ret = (coarse_point_cloud, rebuild_points)
+        #coarse_point_cloud = torch.cat([coarse_point_cloud, inp_sparse], dim=1).contiguous()
+        tooth=rebuild_points
+        #rebuild_points = torch.cat([rebuild_points, xyz],dim=1).contiguous()
+        ret = (coarse_point_cloud,rebuild_points,tooth)
         return ret
-
