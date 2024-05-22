@@ -21,7 +21,14 @@ transforms3d = "^0.4.1"
 einops = "^0.8.0"
 matplotlib = "3.6"
 opencv-python = "4.2.0.34"
+torch = { version = "1.7.1+cu110", source = "pytorch" }
+torchvision = { version = "0.8.2+cu110", source = "pytorch" }
+torchaudio = { version = "0.7.2", source = "pytorch" }
 
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/torch_stable.html"
+secondary = true
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,0 +1,3 @@
+[submodule "KNN_CUDA"]
+	path = KNN_CUDA
+	url = https://github.com/unlimblue/KNN_CUDA.git
