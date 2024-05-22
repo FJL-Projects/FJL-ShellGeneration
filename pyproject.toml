@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "fjl-shellgeneration"
+name = "FJL-ShellGeneration"
 version = "0.1.0"
 description = ""
 authors = ["0x11111111 <dypro_mike@outlook.com>"]
@@ -27,8 +27,8 @@ torchaudio = { version = "0.7.2", source = "pytorch" }
 
 [[tool.poetry.source]]
 name = "pytorch"
-url = "https://download.pytorch.org/whl/torch_stable.html"
-secondary = true
+url = "https://download.pytorch.org/whl/cu110"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]
