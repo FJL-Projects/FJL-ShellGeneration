@@ -24,6 +24,7 @@ opencv-python = "4.2.0.34"
 torch = { version = "1.7.1+cu110", source = "pytorch" }
 torchvision = { version = "0.8.2+cu110", source = "pytorch" }
 torchaudio = { version = "0.7.2", source = "pytorch" }
+setuptools = "^70.0.0"
 
 [[tool.poetry.source]]
 name = "pytorch"
