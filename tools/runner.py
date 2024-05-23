@@ -288,7 +288,7 @@ def test_net(args, config):
     ChamferDisL1 = ChamferDistanceL1()
     ChamferDisL2 = ChamferDistanceL2()
 
-    test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger=logger)
+    # test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger=logger)
 
 def test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger = None):
 
