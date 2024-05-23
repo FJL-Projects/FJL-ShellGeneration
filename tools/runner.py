@@ -316,6 +316,9 @@ def test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, 
                 dense_points = ret[1]
                 toothpoints=ret[2]
                 path_save = './Results'
+                if not os.path.exists(path_save):
+                    os.mkdir(path_save)
+                
                 print("do test")
                 data_list = [partial[0].cpu(), dense_points[0].cpu(),toothpoints[0].cpu()]
                 data_list[0]=torch.multiply(data_list[0],value_std_pc)+value_centroid
@@ -326,11 +329,11 @@ def test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, 
 #                 np.save(os.path.join(path_save,str(model_ids)+'pred.npy'), data_list[1].numpy())
 #                 np.save(os.path.join(path_save, str(model_ids) + 'points.npy'), data_list[2].numpy())
 
-                with open(os.path.join(path_save, str(model_ids) + 'input.xyz'), 'w') as f:
+                with open(os.path.join(path_save, str(model_id) + 'input.xyz'), 'w') as f:
                     for point in data_list[0]:
                         f.write(f"{point[0]} {point[1]} {point[2]}\n")
                           
-                with open(os.path.join(path_save, str(model_ids) + 'pred.xyz'), 'w') as f:
+                with open(os.path.join(path_save, str(model_id) + 'pred.xyz'), 'w') as f:
                     for point in data_list[1]:
                         f.write(f"{point[0]} {point[1]} {point[2]}\n")
 
