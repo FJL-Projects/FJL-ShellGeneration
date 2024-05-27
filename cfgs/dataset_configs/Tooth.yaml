@@ -1,4 +1,4 @@
 NAME: crown
 DATA_PATH: data/dental/crown
-N_POINTS: 9999
+N_POINTS: 5000
 PC_PATH: data/dental/dataset

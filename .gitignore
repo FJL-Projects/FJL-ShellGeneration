@@ -153,3 +153,4 @@ inference_result/
 *.pcd 
 *.ply 
 *.stl
+*.xyz

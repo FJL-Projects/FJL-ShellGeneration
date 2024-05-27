@@ -288,7 +288,7 @@ def test_net(args, config):
     ChamferDisL1 = ChamferDistanceL1()
     ChamferDisL2 = ChamferDistanceL2()
 
-    # test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger=logger)
+    test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger=logger)
 
 def test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, logger = None):
 
@@ -337,50 +337,50 @@ def test(base_model, test_dataloader, ChamferDisL1, ChamferDisL2, args, config, 
                     for point in data_list[1]:
                         f.write(f"{point[0]} {point[1]} {point[2]}\n")
 
-                dense_loss_l1 = ChamferDisL1(dense_points, gt)
-                dense_loss_l2 = ChamferDisL2(dense_points, gt)
+        #         dense_loss_l1 = ChamferDisL1(dense_points, gt)
+        #         dense_loss_l2 = ChamferDisL2(dense_points, gt)
 
-                test_losses.update([dense_loss_l1.item() * 1000,
-                    dense_loss_l2.item() * 1000])
+        #         test_losses.update([dense_loss_l1.item() * 1000,
+        #             dense_loss_l2.item() * 1000])
 
-                _metrics = Metrics.get(dense_points, gt)
-                continue
-            else:
-                raise NotImplementedError(f'Train phase do not support {dataset_name}')
+        #         _metrics = Metrics.get(dense_points, gt)
+        #         continue
+        #     else:
+        #         raise NotImplementedError(f'Train phase do not support {dataset_name}')
 
-            if (idx+1) % 200 == 0:
-                print_log('Test[%d/%d] Taxonomy = %s Sample = %s Losses = %s Metrics = %s' %
-                            (idx + 1, n_samples, taxonomy_id, model_id, ['%.4f' % l for l in test_losses.val()], 
-                            ['%.4f' % m for m in _metrics]), logger=logger)
+        #     if (idx+1) % 200 == 0:
+        #         print_log('Test[%d/%d] Taxonomy = %s Sample = %s Losses = %s Metrics = %s' %
+        #                     (idx + 1, n_samples, taxonomy_id, model_id, ['%.4f' % l for l in test_losses.val()], 
+        #                     ['%.4f' % m for m in _metrics]), logger=logger)
 
-        print_log('[TEST] Metrics = %s' % (['%.4f' % m for m in test_metrics.avg()]), logger=logger)
+        # print_log('[TEST] Metrics = %s' % (['%.4f' % m for m in test_metrics.avg()]), logger=logger)
 
      
 
-    # Print testing results
-    shapenet_dict = json.load(open('./data/shapenet_synset_dict.json', 'r'))
-    print_log('============================ TEST RESULTS ============================',logger=logger)
-    msg = ''
-    msg += 'Taxonomy\t'
-    msg += '#Sample\t'
-    for metric in test_metrics.items:
-        msg += metric + '\t'
-    msg += '#ModelName\t'
-    print_log(msg, logger=logger)
+    # # Print testing results
+    # shapenet_dict = json.load(open('./data/shapenet_synset_dict.json', 'r'))
+    # print_log('============================ TEST RESULTS ============================',logger=logger)
+    # msg = ''
+    # msg += 'Taxonomy\t'
+    # msg += '#Sample\t'
+    # for metric in test_metrics.items:
+    #     msg += metric + '\t'
+    # msg += '#ModelName\t'
+    # print_log(msg, logger=logger)
 
 
-    for taxonomy_id in category_metrics:
-        msg = ''
-        msg += (taxonomy_id + '\t')
-        msg += (str(category_metrics[taxonomy_id].count(0)) + '\t')
-        for value in category_metrics[taxonomy_id].avg():
-            msg += '%.3f \t' % value
-        msg += shapenet_dict[taxonomy_id] + '\t'
-        print_log(msg, logger=logger)
+    # for taxonomy_id in category_metrics:
+    #     msg = ''
+    #     msg += (taxonomy_id + '\t')
+    #     msg += (str(category_metrics[taxonomy_id].count(0)) + '\t')
+    #     for value in category_metrics[taxonomy_id].avg():
+    #         msg += '%.3f \t' % value
+    #     msg += shapenet_dict[taxonomy_id] + '\t'
+    #     print_log(msg, logger=logger)
 
-    msg = ''
-    msg += 'Overall \t\t'
-    for value in test_metrics.avg():
-        msg += '%.3f \t' % value
-    print_log(msg, logger=logger)
-    return 
+    # msg = ''
+    # msg += 'Overall \t\t'
+    # for value in test_metrics.avg():
+    #     msg += '%.3f \t' % value
+    # print_log(msg, logger=logger)
+    # return 
