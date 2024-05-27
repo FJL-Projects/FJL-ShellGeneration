@@ -73,6 +73,9 @@ def get_args():
     args.tfboard_path = os.path.join('./experiments', Path(args.config).stem, Path(args.config).parent.stem,'TFBoard' ,args.exp_name)
     args.log_name = Path(args.config).stem
     create_experiment_dir(args)
+    # Replace any \r characters in specific arguments
+    args.config = args.config.replace('\r', '')
+    args.ckpts = args.ckpts.replace('\r', '')
     return args
 
 def create_experiment_dir(args):
